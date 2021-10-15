@@ -4,7 +4,7 @@ var TECLA = {
 	S: 83,
 	D: 68
 }
-
+var podeAtirar=true;
 var velocidade=5;
 var posicaoY = parseInt(Math.random() * 334);
 
@@ -62,7 +62,7 @@ function movejogador() {
 		}
 	}
 	if (jogo.pressionou[TECLA.D]) {
-		//Chama função Disparo	
+		disparo();
 	}
 
 } 
@@ -104,3 +104,36 @@ function moveamigo() {
 		}
 
 }
+
+function disparo() {
+	
+	if (podeAtirar==true) {
+		
+	podeAtirar=false;
+	
+	topo = parseInt($("#jogador").css("top"))
+	posicaoX= parseInt($("#jogador").css("left"))
+	tiroX = posicaoX + 190;
+	topoTiro=topo+37;
+	$("#fundoGame").append("<div id='disparo'></div");
+	$("#disparo").css("top",topoTiro);
+	$("#disparo").css("left",tiroX);
+	
+	var tempoDisparo=window.setInterval(executaDisparo, 30);
+	
+	} 
+ 
+   	    function executaDisparo() {
+	    posicaoX = parseInt($("#disparo").css("left"));
+	    $("#disparo").css("left",posicaoX+15); 
+
+        		if (posicaoX>900) {
+						
+			window.clearInterval(tempoDisparo);
+			tempoDisparo=null;
+			$("#disparo").remove();
+			podeAtirar=true;
+					
+                   }
+	} 
+} 
